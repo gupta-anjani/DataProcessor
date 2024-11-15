@@ -37,7 +37,7 @@ public class HospitalDataProcessor {
         return spark.read()
                 .option("header", "true")
                 .option("delimiter", "|")
-                .option("numPartitions", "50")
+                .option("numPartitions", "50")// decide based on memory, data and core
                 .csv("path/to/input/customer_data.csv");
     }
     
@@ -94,7 +94,7 @@ public class HospitalDataProcessor {
                     .option("user", "postgres")
                     .option("password", "Hello@2323h")
                     .option("driver", "org.postgresql.Driver") // Specify the PostgreSQL driver
-                    .option("numPartitions", "100")
+                    .option("numPartitions", "100") // decide based on memory, data and core
                     .mode(SaveMode.Append) // Use SaveMode.Append to add data
                     .save();
         }
