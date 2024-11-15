@@ -1,6 +1,8 @@
 package com.hospital.dataprocessor;
 
 import org.apache.spark.sql.SparkSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
@@ -10,13 +12,15 @@ import static org.apache.spark.sql.functions.*;
 import java.util.List;
 
 public class HospitalDataProcessor { 
+	// Create a logger instance for this class
+    private static final Logger logger = LoggerFactory.getLogger(HospitalDataProcessor.class);
+    
     public static void main(String[] args) {
         SparkSession spark = SparkSession.builder()
                 .appName("Hospital Data Processor")
                 .master("local[*]") // Change to your cluster if needed
                 .getOrCreate();
-        
-        spark.sparkContext().setLogLevel("ERROR");
+
         
         // Load and process data
         Dataset<Row> rawData = loadData(spark);
@@ -70,10 +74,10 @@ public class HospitalDataProcessor {
                                               .or(col("Open_Dt").isNull()));
 
         if (invalidData.count() > 0) {
-            System.out.println("Invalid data detected:");
+        	logger.warn("Invalid data detected");
             invalidData.show();
         } else {
-            System.out.println("Data validation passed.");
+        	logger.info("Data validation passed");
         }
     }
     

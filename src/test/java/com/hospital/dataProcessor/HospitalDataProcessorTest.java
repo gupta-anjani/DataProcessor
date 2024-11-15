@@ -9,7 +9,6 @@ import com.hospital.dataprocessor.HospitalDataProcessor;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.Encoders;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +20,6 @@ import java.util.List;
 class HospitalDataProcessorTest {
 
     private static SparkSession spark;
-    private Dataset<Row> sampleData;
 
     @BeforeAll
     static void setupClass() {
